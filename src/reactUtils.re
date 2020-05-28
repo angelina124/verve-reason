@@ -1,0 +1,1 @@
+external toStr: string => React.element = "%identity";
