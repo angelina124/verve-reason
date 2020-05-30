@@ -1,17 +1,26 @@
 open ReactNative;
+open ReasonReact;
+open ReactUtils;
 
 let styles =
   Style.(
     StyleSheet.create({
       "body": style(~backgroundColor="#f0f", ()),
       "sectionContainer":
-        style(~marginTop=32.->dp, ~paddingHorizontal=24.->dp, ()),
+        style(
+          ~marginTop=72.->dp,
+          ~paddingHorizontal=24.->dp,
+          ~marginHorizontal=72.->dp,
+          (),
+        ),
     })
   );
 
 [@react.component]
 let app = () =>
-  <View style=styles##sectionContainer>
-    <Text style=styles##body> {ReasonReact.string("Testing123!")} </Text>
-    <TodoListScreen />
-  </View>;
+  <>
+    <View style={styles##sectionContainer}>
+      <Text> {toStr("yolo")} </Text>
+      <TodoListScreen />
+    </View>
+  </>;
