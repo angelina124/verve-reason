@@ -1,16 +1,27 @@
 open ReactNative;
-open ReasonReact;
 open ReactUtils;
+open Colors;
 
 let styles =
   Style.(
     StyleSheet.create({
-      "body": style(~backgroundColor="#f0f", ()),
+      "header":
+        style(
+          ~textAlign=`center,
+          ~fontSize=24.,
+          ~color={
+            colors.blueYonder;
+          },
+          (),
+        ),
+      "headerContainer":
+        style(~padding=18.->dp, ~backgroundColor="#fff", ~opacity=0.8, ()),
       "sectionContainer":
         style(
-          ~marginTop=72.->dp,
-          ~paddingHorizontal=24.->dp,
-          ~marginHorizontal=72.->dp,
+          ~marginTop=64.->dp,
+          ~textAlign=`center,
+          ~justifyContent=`center,
+          ~backgroundColor=colors.naplesYellow,
           (),
         ),
     })
@@ -20,7 +31,9 @@ let styles =
 let app = () =>
   <>
     <View style={styles##sectionContainer}>
-      <Text> {toStr("yolo")} </Text>
-      <TodoListScreen />
+      <View style={styles##headerContainer}>
+        <Text style={styles##header}> {toStr("TODOS")} </Text>
+      </View>
+      <View> <TodoListScreen /> </View>
     </View>
   </>;
