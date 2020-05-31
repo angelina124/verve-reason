@@ -37,11 +37,12 @@ let app = () => {
     useReducer(
       (state, action) => {
         switch (action) {
-        | TODOLIST => {...state, screen: <TodoListScreen />}
-        | _ => {...state, screen: not_found}
+        | TODOLIST => {screen: TODOLIST}
+        | ADDTODO => {screen: ADDTODO}
+        | _ => {screen: NOT_FOUND}
         }
       },
-      {screen: <TodoListScreen />},
+      {screen: TODOLIST},
     );
   <>
     <View style={styles##sectionContainer}>
@@ -51,7 +52,13 @@ let app = () => {
         <Button title="Go to not found" onPress={_ => dispatch(NOT_FOUND)} />
       </View>
     </View>
-    <View> {state.screen} </View>
+    <View>
+      {switch (state.screen) {
+       | TODOLIST => <TodoListScreen goToAddTodo={() => dispatch(ADDTODO)} />
+       | ADDTODO => <AddTodo goToTodoList={() => dispatch(TODOLIST)} />
+       | _ => not_found
+       }}
+    </View>
     <View />
   </>;
 };

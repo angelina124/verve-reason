@@ -6,7 +6,7 @@ open Types;
 let userID = "5ed2787cd20bf24e921e38d0";
 
 [@react.component]
-let make = () => {
+let make = (~goToAddTodo) => {
   // declaration of react hooks
   let (state, dispatch) =
     useReducer(
@@ -20,7 +20,6 @@ let make = () => {
           }
         | FETCHING_TODOS => {...state, fetching: true}
         | ERROR_FETCHING_TODOS => {...state, fetching: false, error: true}
-        | ADD_TODO(todo) => {...state, todolist: [todo, ...state.todolist]}
         | COMPLETE_TODO(completed) => {
             ...state,
             todolist:
@@ -62,5 +61,8 @@ let make = () => {
     Js.Global.setTimeout(() => {fetchTodos(userID)}, 2000) |> ignore;
     Some(() => Js.log("updated"));
   });
-  <View> <TodoList todolist={state.todolist} completeTodo /> </View>;
+  <View>
+    <TodoList todolist={state.todolist} completeTodo />
+    <Button title="Add todo" onPress={_ => goToAddTodo()} />
+  </View>;
 };

@@ -6,6 +6,7 @@ type user_route = string;
 type routes = {
   todos: todo_route,
   completeTodo: todo_route,
+  addTodo: todo_route,
   user: user_route,
   login: user_route,
 };
@@ -13,6 +14,7 @@ type routes = {
 let routes = {
   todos: path ++ "todos/",
   completeTodo: path ++ "todos/complete/",
+  addTodo: path ++ "todos/",
   user: path ++ "users/",
   login: path ++ "users/login",
 };

@@ -49,15 +49,12 @@ module DelIcon = {
 };
 
 [@react.component]
-let make = (~todolist=?, ~completeTodo, _) => {
+let make = (~todolist: option(list(todo))=?, ~completeTodo, _) => {
   switch (todolist) {
   | Some(todos) =>
-    Js.log("Todos are ");
-    Js.log(List.length(todos));
     <View style={styles##todoList}>
       {List.mapi(
-         (i, todo) => {
-           Js.log(todo);
+         (i, todo: todo) => {
            <View key={string_of_int(i)} style={styles##todoContainer}>
              <View style={styles##points}>
                <Text> {string_of_int(todo.points) |> toStr} </Text>
@@ -68,13 +65,13 @@ let make = (~todolist=?, ~completeTodo, _) => {
              <TouchableOpacity onPress={_ => completeTodo(~todoID=todo._id)}>
                <DelIcon />
              </TouchableOpacity>
-           </View>;
+           </View>
          },
          todos,
        )
        |> Array.of_list
        |> array}
-    </View>;
+    </View>
   | None => <View> <Text> {toStr("No todos here!")} </Text> </View>
   };
 };

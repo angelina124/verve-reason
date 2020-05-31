@@ -1,0 +1,1 @@
+let defaultPoints = 20;

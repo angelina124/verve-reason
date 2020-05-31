@@ -4,13 +4,22 @@ type todo = {
   points: int,
 };
 
-type todoAction =
+type new_todo = {
+  text: string,
+  points: int,
+};
+
+type todosAction =
   | FETCH_TODOS(list(todo))
   | FETCHING_TODOS
   | ERROR_FETCHING_TODOS
-  | ADD_TODO(todo)
   | COMPLETE_TODO(todo)
   | ERROR_COMPLETING_TODO;
+
+type addAction =
+  | ADD_TODO(todo)
+  | ERROR_ADDING_TODO
+  | TEXT_CHANGED(string);
 
 type screens =
   | TODOLIST
@@ -26,6 +35,17 @@ type todoListScreen = {
   error: bool,
 };
 
-type appScreen = {screen: React.element};
+type appScreen = {screen: screens};
 
-type states = {todoListScreen};
+type addTodoScreen = {
+  error: bool,
+  canSubmit: bool,
+  text: string,
+  points: int,
+};
+
+type states = {
+  todoListScreen,
+  appScreen,
+  addTodoScreen,
+};
