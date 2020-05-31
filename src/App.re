@@ -49,7 +49,6 @@ let app = () => {
       <View style={styles##headerContainer}>
         <Text style={styles##header}> {toStr("TODOS")} </Text>
         <Button title="Go to Todos" onPress={_ => dispatch(TODOLIST)} />
-        <Button title="Go to not found" onPress={_ => dispatch(NOT_FOUND)} />
       </View>
     </View>
     <View>
