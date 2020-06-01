@@ -29,7 +29,7 @@ type screens =
   | NOT_FOUND;
 
 type todoListScreen = {
-  todolist: list(todo),
+  todoList: list(todo),
   fetching: bool,
   fetched: bool,
   error: bool,

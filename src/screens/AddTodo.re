@@ -6,8 +6,6 @@ open ReactUtils;
 open Constants;
 open Colors;
 
-let userID = "5ed2787cd20bf24e921e38d0";
-
 let windowDimensions = Dimensions.get(`window);
 let windowWidth = windowDimensions##width;
 
@@ -46,10 +44,7 @@ let make = (~goToTodoList: unit => unit) => {
     );
   let addTodo = (~text: string, ~points: int) => {
     Js.Promise.(
-      Axios.postData(
-        routes.addTodo ++ userID,
-        newTodoToObject({text, points}),
-      )
+      Axios.postData(routes.addTodo ++ tID, newTodoToObject({text, points}))
       |> then_(res => {resolve(dispatch(ADD_TODO(res##data)))})
       |> catch(_ => resolve(dispatch(ERROR_ADDING_TODO)))
       |> ignore

@@ -3,8 +3,7 @@ open React;
 open Routes;
 open Types;
 open ReactUtils;
-
-let userID = "5ed2787cd20bf24e921e38d0";
+open Constants;
 
 let styles =
   Style.(StyleSheet.create({"fetching": style(~alignItems=`center, ())}));
@@ -20,28 +19,28 @@ let make = (~goToAddTodo) => {
             ...state,
             fetching: false,
             fetched: true,
-            todolist: ts,
+            todoList: ts,
           }
         | FETCHING_TODOS => {...state, fetching: true}
         | ERROR_FETCHING_TODOS => {...state, fetching: false, error: true}
         | COMPLETE_TODO(completed) => {
             ...state,
-            todolist:
-              List.filter(todo => todo._id != completed._id, state.todolist),
+            todoList:
+              List.filter(todo => todo._id != completed._id, state.todoList),
           }
         | ERROR_COMPLETING_TODO => {...state, fetching: false, error: true}
         }
       },
-      {todolist: [], fetching: false, fetched: false, error: false},
+      {todoList: [], fetching: false, fetched: false, error: false},
     );
-  let fetchTodos = userID => {
+  let fetchTodos = tID => {
     Js.Promise.(
-      Axios.get(routes.todos ++ userID)
+      Axios.get(routes.todos ++ tID)
       |> then_(res => {
            let ts = res##data##todos;
            Js.log(ts);
-           let todolist = Js.Array.reduceRight((a, t) => [t, ...a], [], ts);
-           resolve(dispatch(FETCH_TODOS(todolist)));
+           let todoList = Js.Array.reduceRight((a, t) => [t, ...a], [], ts);
+           resolve(dispatch(FETCH_TODOS(todoList)));
          })
       |> catch(err => {
            Js.log(err);
@@ -63,13 +62,13 @@ let make = (~goToAddTodo) => {
   };
   React.useEffect0(() => {
     dispatch(FETCHING_TODOS);
-    Js.Global.setTimeout(() => {fetchTodos(userID)}, 2000) |> ignore;
+    Js.Global.setTimeout(() => {fetchTodos(tID)}, 2000) |> ignore;
     Some(() => Js.log("updated"));
   });
   <View>
     {!state.fetching
        ? <View>
-           <TodoList todolist={state.todolist} completeTodo />
+           <TodoList todoList={state.todoList} completeTodo />
            <Button title="Add todo" onPress={_ => goToAddTodo()} />
          </View>
        : <View style={styles##fetching}>
