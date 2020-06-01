@@ -2,8 +2,12 @@ open ReactNative;
 open React;
 open Routes;
 open Types;
+open ReactUtils;
 
 let userID = "5ed2787cd20bf24e921e38d0";
+
+let styles =
+  Style.(StyleSheet.create({"fetching": style(~alignItems=`center, ())}));
 
 [@react.component]
 let make = (~goToAddTodo) => {
@@ -58,11 +62,18 @@ let make = (~goToAddTodo) => {
     );
   };
   React.useEffect0(() => {
+    dispatch(FETCHING_TODOS);
     Js.Global.setTimeout(() => {fetchTodos(userID)}, 2000) |> ignore;
     Some(() => Js.log("updated"));
   });
   <View>
-    <TodoList todolist={state.todolist} completeTodo />
-    <Button title="Add todo" onPress={_ => goToAddTodo()} />
+    {!state.fetching
+       ? <View>
+           <TodoList todolist={state.todolist} completeTodo />
+           <Button title="Add todo" onPress={_ => goToAddTodo()} />
+         </View>
+       : <View style={styles##fetching}>
+           <Text> {toStr("fetching your awesome todos...")} </Text>
+         </View>}
   </View>;
 };

@@ -4,26 +4,33 @@ open ReactUtils;
 open Colors;
 open Types;
 
+let windowDimensions = Dimensions.get(`window);
+let height = windowDimensions##height;
+let width = windowDimensions##width;
+
 let styles =
   Style.(
     StyleSheet.create({
-      "header":
+      "app":
         style(
-          ~textAlign=`center,
-          ~fontSize=24.,
-          ~color={
-            colors.blueYonder;
-          },
+          ~height=height->dp,
+          ~width=width->dp,
+          ~backgroundColor=colors.naplesYellow,
           (),
         ),
       "headerContainer":
-        style(~padding=18.->dp, ~backgroundColor="#fff", ~opacity=0.8, ()),
+        style(
+          ~marginTop=56.->dp,
+          ~padding=18.->dp,
+          ~backgroundColor="#fff",
+          ~opacity=0.8,
+          (),
+        ),
       "sectionContainer":
         style(
-          ~marginTop=64.->dp,
+          ~marginTop=24.->dp,
           ~textAlign=`center,
           ~justifyContent=`center,
-          ~backgroundColor=colors.naplesYellow,
           (),
         ),
     })
@@ -44,14 +51,11 @@ let app = () => {
       },
       {screen: TODOLIST},
     );
-  <>
-    <View style={styles##sectionContainer}>
-      <View style={styles##headerContainer}>
-        <Text style={styles##header}> {toStr("TODOS")} </Text>
-        <Button title="Go to Todos" onPress={_ => dispatch(TODOLIST)} />
-      </View>
+  <View style={styles##app}>
+    <View style={styles##headerContainer}>
+      <Header screen={state.screen} />
     </View>
-    <View>
+    <View style={styles##sectionContainer}>
       {switch (state.screen) {
        | TODOLIST => <TodoListScreen goToAddTodo={() => dispatch(ADDTODO)} />
        | ADDTODO => <AddTodo goToTodoList={() => dispatch(TODOLIST)} />
@@ -59,5 +63,5 @@ let app = () => {
        }}
     </View>
     <View />
-  </>;
+  </View>;
 };
