@@ -11,7 +11,7 @@ let styles =
 [@react.component]
 let make = (~goToAddTodo) => {
   // declaration of react hooks
-  let (state, dispatch) =
+  let (state: todoListScreen, dispatch) =
     useReducer(
       (state, action) => {
         switch (action) {
@@ -26,7 +26,10 @@ let make = (~goToAddTodo) => {
         | COMPLETE_TODO(completed) => {
             ...state,
             todoList:
-              List.filter(todo => todo._id != completed._id, state.todoList),
+              List.filter(
+                (todo: todo) => todo._id != completed._id,
+                state.todoList,
+              ),
           }
         | ERROR_COMPLETING_TODO => {...state, fetching: false, error: true}
         }
