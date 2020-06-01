@@ -38,19 +38,26 @@ let styles =
 
 [@react.component]
 let app = () => {
-  let not_found =
-    <View> <Text> {toStr("screen not found :(")} </Text> </View>;
   let (state, dispatch) =
     useReducer(
       (state, action) => {
         switch (action) {
         | TODOLIST => {screen: TODOLIST}
         | ADDTODO => {screen: ADDTODO}
+        | STATS => {screen: STATS}
+        | STORE => {screen: STORE}
         | _ => {screen: NOT_FOUND}
         }
       },
-      {screen: TODOLIST},
+      {screen: STATS},
     );
+  let not_found =
+    <View> <Text> {toStr("screen not found :(")} </Text> </View>;
+  let stats =
+    <View>
+      <Button title="store" onPress={_ => dispatch(STORE)} />
+      <Button title="todos" onPress={_ => dispatch(TODOLIST)} />
+    </View>;
   <View style={styles##app}>
     <View style={styles##headerContainer}>
       <Header screen={state.screen} />
@@ -59,6 +66,8 @@ let app = () => {
       {switch (state.screen) {
        | TODOLIST => <TodoListScreen goToAddTodo={() => dispatch(ADDTODO)} />
        | ADDTODO => <AddTodo goToTodoList={() => dispatch(TODOLIST)} />
+       | STORE => <StoreScreen />
+       | STATS => stats
        | _ => not_found
        }}
     </View>

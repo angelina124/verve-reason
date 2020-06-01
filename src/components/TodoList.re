@@ -49,8 +49,8 @@ module DelIcon = {
 };
 
 [@react.component]
-let make = (~todolist: option(list(todo))=?, ~completeTodo, _) => {
-  switch (todolist) {
+let make = (~todoList: option(list(todo))=?, ~completeTodo, _) => {
+  switch (todoList) {
   | Some(todos) =>
     <View style={styles##todoList}>
       {List.mapi(

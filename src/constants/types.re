@@ -4,6 +4,12 @@ type todo = {
   points: int,
 };
 
+type reward = {
+  _id: string,
+  text: string,
+  points: int,
+};
+
 type new_todo = {
   text: string,
   points: int,
@@ -15,6 +21,11 @@ type todosAction =
   | ERROR_FETCHING_TODOS
   | COMPLETE_TODO(todo)
   | ERROR_COMPLETING_TODO;
+
+type storeAction =
+  | FETCH_REWARDS(list(reward))
+  | FETCHING_REWARDS
+  | ERROR_FETCHING_REWARDS;
 
 type addAction =
   | ADD_TODO(todo)
@@ -29,7 +40,14 @@ type screens =
   | NOT_FOUND;
 
 type todoListScreen = {
-  todolist: list(todo),
+  todoList: list(todo),
+  fetching: bool,
+  fetched: bool,
+  error: bool,
+};
+
+type storeScreen = {
+  rewardList: list(reward),
   fetching: bool,
   fetched: bool,
   error: bool,
@@ -48,4 +66,5 @@ type states = {
   todoListScreen,
   appScreen,
   addTodoScreen,
+  storeScreen,
 };
