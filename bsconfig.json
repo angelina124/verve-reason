@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "my-reason-expo-app",
   "reason": {
     "react-jsx": 3
@@ -13,16 +14,36 @@
     "reason-expo",
     "reason-expo"
   ],
+=======
+  "name": "VerveReason",
+  "refmt": 3,
+  "reason": {
+    "react-jsx": 3
+  },
+  "package-specs": {
+    "module": "es6",
+    "in-source": true
+  },
+  "suffix": ".bs.js",
+>>>>>>> f3185f45afc5b08d547916c57cce2badf78de4c7
   "sources": [
     {
       "dir": "src",
       "subdirs": true
     }
   ],
+<<<<<<< HEAD
   "suffix": ".bs.js",
   "refmt": 3,
   "package-specs": {
     "module": "es6",
     "in-source": true
   }
+=======
+  "bs-dependencies": [
+    "reason-react",
+    "reason-react-native",
+    "bs-axios"
+  ]
+>>>>>>> f3185f45afc5b08d547916c57cce2badf78de4c7
 }

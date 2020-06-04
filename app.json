@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "expo": {
     "name": "VerveReasonExpo",
     "description": "A basic ReasonExpo app.",
@@ -28,3 +29,8 @@
     }
   }
 }
+=======
+  "name": "VerveReason",
+  "displayName": "VerveReason"
+}
+>>>>>>> f3185f45afc5b08d547916c57cce2badf78de4c7

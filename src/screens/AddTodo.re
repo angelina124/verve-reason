@@ -3,7 +3,10 @@ open React;
 open Routes;
 open Types;
 open ReactUtils;
+<<<<<<< HEAD
 open AxiosUtils;
+=======
+>>>>>>> f3185f45afc5b08d547916c57cce2badf78de4c7
 open Constants;
 open Colors;
 
@@ -43,6 +46,17 @@ let make = (~goToTodoList: unit => unit) => {
       },
       {error: false, canSubmit: true, text: "", points: defaultPoints},
     );
+<<<<<<< HEAD
+=======
+  let addTodo = (~text: string, ~points: int) => {
+    Js.Promise.(
+      Axios.postData(routes.addTodo ++ tID, newTodoToObject({text, points}))
+      |> then_(res => {resolve(dispatch(ADD_TODO(res##data)))})
+      |> catch(_ => resolve(dispatch(ERROR_ADDING_TODO)))
+      |> ignore
+    );
+  };
+>>>>>>> f3185f45afc5b08d547916c57cce2badf78de4c7
   <View style={styles##container}>
     <TextInput
       style={styles##textInput}
@@ -51,6 +65,7 @@ let make = (~goToTodoList: unit => unit) => {
     <Button
       title="Submit"
       onPress={_ => {
+<<<<<<< HEAD
           addTodo(~text=state.text, 
           ~points=state.points,
           ~goToTodoList=goToTodoList, 
@@ -58,6 +73,11 @@ let make = (~goToTodoList: unit => unit) => {
           ~dispatch=dispatch)
         }
       }
+=======
+        addTodo(~text=state.text, ~points=state.points);
+        goToTodoList();
+      }}
+>>>>>>> f3185f45afc5b08d547916c57cce2badf78de4c7
     />
   </View>;
 };

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 open Types
 
 let mode = PRODUCTION
@@ -7,6 +8,9 @@ switch (mode) {
   | PRODUCTION => "https://verve-api.herokuapp.com/api/"
   | DEVELOP => "http://localhost:3000/api/"
 }
+=======
+let path = "http://localhost:3000/api/";
+>>>>>>> f3185f45afc5b08d547916c57cce2badf78de4c7
 
 type todo_route = string;
 type user_route = string;

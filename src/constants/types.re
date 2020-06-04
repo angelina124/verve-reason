@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 type mode = DEVELOP | PRODUCTION
 
+=======
+>>>>>>> f3185f45afc5b08d547916c57cce2badf78de4c7
 type todo = {
   _id: string,
   text: string,

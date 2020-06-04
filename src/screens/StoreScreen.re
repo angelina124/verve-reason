@@ -3,7 +3,10 @@ open React;
 open Routes;
 open Types;
 open ReactUtils;
+<<<<<<< HEAD
 open AxiosUtils;
+=======
+>>>>>>> f3185f45afc5b08d547916c57cce2badf78de4c7
 open Constants;
 
 let styles =
@@ -28,9 +31,32 @@ let make = () => {
       },
       {rewardList: [], fetching: false, fetched: false, error: false},
     );
+<<<<<<< HEAD
   React.useEffect0(() => {
     dispatch(FETCHING_REWARDS);
     Js.Global.setTimeout(() => {fetchRewards(~uID=uID, ~dispatch=dispatch)}, 2000) |> ignore;
+=======
+  let fetchRewards = uID => {
+    Js.Promise.(
+      Axios.get(routes.rewards ++ uID)
+      |> then_(res => {
+           let ts = res##data##rewards;
+           Js.log(ts);
+           let rewardList =
+             Js.Array.reduceRight((a, t) => [t, ...a], [], ts);
+           resolve(dispatch(FETCH_REWARDS(rewardList)));
+         })
+      |> catch(err => {
+           Js.log(err);
+           resolve(dispatch(ERROR_FETCHING_REWARDS));
+         })
+      |> ignore
+    );
+  };
+  React.useEffect0(() => {
+    dispatch(FETCHING_REWARDS);
+    Js.Global.setTimeout(() => {fetchRewards(uID)}, 2000) |> ignore;
+>>>>>>> f3185f45afc5b08d547916c57cce2badf78de4c7
     Some(() => Js.log("updated"));
   });
   <View>

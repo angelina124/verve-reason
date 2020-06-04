@@ -44,11 +44,16 @@ module DelIcon = {
     <Image
       source={Image.Source.fromRequired(delIconPath)}
       resizeMethod=`scale
+<<<<<<< HEAD
       style=styles##delIcon
+=======
+      style={styles##delIcon}
+>>>>>>> f3185f45afc5b08d547916c57cce2badf78de4c7
     />;
 };
 
 [@react.component]
+<<<<<<< HEAD
 let make = (~todoList: option(list(todo))=?, ~completeTodo, _) =>
   switch (todoList) {
   | Some(todos) =>
@@ -75,3 +80,31 @@ let make = (~todoList: option(list(todo))=?, ~completeTodo, _) =>
     </View>
   | None => <View> <Text> {toStr("No todos here!")} </Text> </View>
   };
+=======
+let make = (~todoList: option(list(todo))=?, ~completeTodo, _) => {
+  switch (todoList) {
+  | Some(todos) =>
+    <View style={styles##todoList}>
+      {List.mapi(
+         (i, todo: todo) => {
+           <View key={string_of_int(i)} style={styles##todoContainer}>
+             <View style={styles##points}>
+               <Text> {string_of_int(todo.points) |> toStr} </Text>
+             </View>
+             <View style={styles##text}>
+               <Text> {toStr(todo.text)} </Text>
+             </View>
+             <TouchableOpacity onPress={_ => completeTodo(~todoID=todo._id)}>
+               <DelIcon />
+             </TouchableOpacity>
+           </View>
+         },
+         todos,
+       )
+       |> Array.of_list
+       |> array}
+    </View>
+  | None => <View> <Text> {toStr("No todos here!")} </Text> </View>
+  };
+};
+>>>>>>> f3185f45afc5b08d547916c57cce2badf78de4c7
