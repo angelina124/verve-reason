@@ -3,11 +3,20 @@
   "reason": {
     "react-jsx": 3
   },
-  "bsc-flags": ["-bs-super-errors"],
-  "bs-dependencies": ["reason-react", "reason-react-native", "reason-expo"],
+  "bsc-flags": [
+    "-bs-super-errors"
+  ],
+  "bs-dependencies": [
+    "reason-react",
+    "reason-react-native",
+    "bs-axios",
+    "reason-expo",
+    "reason-expo"
+  ],
   "sources": [
     {
-      "dir": "src"
+      "dir": "src",
+      "subdirs": true
     }
   ],
   "suffix": ".bs.js",
