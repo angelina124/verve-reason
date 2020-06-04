@@ -1,3 +1,7 @@
+type mode =
+  | DEVELOP
+  | PRODUCTION;
+
 type todo = {
   _id: string,
   text: string,

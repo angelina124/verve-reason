@@ -1,4 +1,12 @@
-let path = "http://localhost:3000/api/";
+open Types;
+
+let mode = PRODUCTION;
+
+let path =
+  switch (mode) {
+  | PRODUCTION => "https://verve-api.herokuapp.com/api/"
+  | DEVELOP => "http://localhost:3000/api/"
+  };
 
 type todo_route = string;
 type user_route = string;
