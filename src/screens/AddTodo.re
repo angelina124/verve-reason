@@ -30,7 +30,7 @@ let styles =
   );
 
 [@react.component]
-let make = (~goToTodoList: unit => unit) => {
+let make = (~goToTodoList) => {
   let (state, dispatch) =
     useReducer(
       (state, action) =>
@@ -54,7 +54,7 @@ let make = (~goToTodoList: unit => unit) => {
             ~text=state.text,
             ~points=state.points,
             ~goToTodoList,
-            ~todoID=tID,
+            ~todoListID=tID,
             ~dispatch,
           )
       }

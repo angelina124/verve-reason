@@ -15,7 +15,7 @@ let make = () => {
     useReducer(
       (state, action) =>
         switch (action) {
-        | FETCH_REWARDS(ts) => {
+        | FETCHED_REWARDS(ts) => {
             ...state,
             fetching: false,
             fetched: true,

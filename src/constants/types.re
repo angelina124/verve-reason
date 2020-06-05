@@ -1,3 +1,5 @@
+type id = string;
+
 type mode =
   | DEVELOP
   | PRODUCTION;
@@ -20,14 +22,14 @@ type new_todo = {
 };
 
 type todosAction =
-  | FETCH_TODOS(list(todo))
+  | FETCHED_TODOS(list(todo))
   | FETCHING_TODOS
   | ERROR_FETCHING_TODOS
-  | COMPLETE_TODO(todo)
+  | COMPLETED_TODO(todo)
   | ERROR_COMPLETING_TODO;
 
 type storeAction =
-  | FETCH_REWARDS(list(reward))
+  | FETCHED_REWARDS(list(reward))
   | FETCHING_REWARDS
   | ERROR_FETCHING_REWARDS;
 

@@ -2,14 +2,14 @@ open Routes;
 open Types;
 open ReactUtils;
 
-let fetchRewards = (~uID, ~dispatch) =>
+let fetchRewards = (~uID:id, ~dispatch) =>
   Js.Promise.(
     Axios.get(routes.rewards ++ uID)
     |> then_(res => {
          let ts = res##data##rewards;
          Js.log(ts);
          let rewardList = Js.Array.reduceRight((a, t) => [t, ...a], [], ts);
-         resolve(dispatch(FETCH_REWARDS(rewardList)));
+         resolve(dispatch(FETCHED_REWARDS(rewardList)));
        })
     |> catch(err => {
          Js.log(err);
@@ -18,22 +18,25 @@ let fetchRewards = (~uID, ~dispatch) =>
     |> ignore
   );
 
-let addTodo = (~text: string, ~points: int, ~goToTodoList, ~todoID, ~dispatch) =>
+let addTodo = (~text, ~points, ~goToTodoList, ~todoListID:id, ~dispatch) =>
   Js.Promise.(
-    Axios.postData(routes.addTodo ++ todoID, newTodoToObject({text, points}))
+    Axios.postData(
+      routes.todos ++ todoListID,
+      newTodoToObject({text, points}),
+    )
     |> then_(res => resolve(goToTodoList()))
     |> catch(_ => resolve(dispatch(ERROR_ADDING_TODO)))
     |> ignore
   );
 
-let fetchTodos = (~todoID, ~dispatch) =>
+let fetchTodos = (~todoListID:id, ~dispatch) =>
   Js.Promise.(
-    Axios.get(routes.todos ++ todoID)
+    Axios.get(routes.todos ++ todoListID)
     |> then_(res => {
          let ts = res##data##todos;
          Js.log(ts);
          let todoList = Js.Array.reduceRight((a, t) => [t, ...a], [], ts);
-         resolve(dispatch(FETCH_TODOS(todoList)));
+         resolve(dispatch(FETCHED_TODOS(todoList)));
        })
     |> catch(err => {
          Js.log(err);
@@ -41,12 +44,12 @@ let fetchTodos = (~todoID, ~dispatch) =>
        })
     |> ignore
   );
-let completeTodo = (~todoID: string, ~dispatch) =>
+let completeTodo = (~todoID:id, ~dispatch) =>
   Js.Promise.(
     Axios.post(routes.completeTodo ++ todoID)
     |> then_(res => {
          let todo = res##data##todoDoc;
-         resolve(dispatch(COMPLETE_TODO(todo)));
+         resolve(dispatch(COMPLETED_TODO(todo)));
        })
     |> catch(_ => resolve(dispatch(ERROR_COMPLETING_TODO)))
     |> ignore

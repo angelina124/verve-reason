@@ -14,7 +14,7 @@ let make = (~goToAddTodo) => {
     useReducer(
       (state, action) =>
         switch (action) {
-        | FETCH_TODOS(ts) => {
+        | FETCHED_TODOS(ts) => {
             ...state,
             fetching: false,
             fetched: true,
@@ -22,7 +22,7 @@ let make = (~goToAddTodo) => {
           }
         | FETCHING_TODOS => {...state, fetching: true}
         | ERROR_FETCHING_TODOS => {...state, fetching: false, error: true}
-        | COMPLETE_TODO(completed) => {
+        | COMPLETED_TODO(completed) => {
             ...state,
             todoList:
               List.filter(
@@ -36,7 +36,7 @@ let make = (~goToAddTodo) => {
     );
   React.useEffect0(() => {
     dispatch(FETCHING_TODOS);
-    Js.Global.setTimeout(() => fetchTodos(~todoID=tID, ~dispatch), 2000)
+    Js.Global.setTimeout(() => fetchTodos(~todoListID=tID, ~dispatch), 2000)
     |> ignore;
     Some(() => Js.log("updated"));
   });

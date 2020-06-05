@@ -6,25 +6,30 @@
     "ios": "expo start --ios",
     "eject": "expo eject",
     "build": "bsb -make-world -clean-world",
-    "watch": "bsb -make-world -clean-world -w"
+    "watch": "bsb -make-world -clean-world -w",
+    "test": "jest"
   },
   "dependencies": {
     "bs-axios": "^0.0.43",
+    "bsc": "^1.0.1",
     "expo": "^34.0.3",
+    "jest-expo": "^34.0.0",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
     "reason-expo": "^34.4.1",
     "reason-react": "^0.7.0",
     "reason-react-native": "^0.61.0",
-    "watchman": "^1.0.0",
-    "jest-expo": "^34.0.0"
+    "watchman": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
+    "bs-jest-dom": "^4.0.0",
     "bs-platform": "^7.0.0",
+    "bs-enzyme": "^0.6.1",
+    "enzyme-to-json": "^3.5.0",
     "eslint": "^6.5.1",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.56.0",
@@ -33,6 +38,9 @@
   },
   "jest": {
     "preset": "react-native",
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!(jest-)?react-native|react-(native|universal|navigation)-(.*)|@react-native-community/(.*)|@react-navigation/(.*)|bs-platform)"
     ]
