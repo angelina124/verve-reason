@@ -1,8 +1,11 @@
 open Routes;
-open Types;
+open Actions;
+open Data;
+open Screens;
+open Settings;
 open ReactUtils;
 
-let fetchRewards = (~uID:id, ~dispatch) =>
+let fetchRewards = (~uID: id, ~dispatch) =>
   Js.Promise.(
     Axios.get(routes.rewards ++ uID)
     |> then_(res => {
@@ -18,18 +21,23 @@ let fetchRewards = (~uID:id, ~dispatch) =>
     |> ignore
   );
 
-let addTodo = (~text, ~points, ~goToTodoList, ~todoListID:id, ~dispatch) =>
+let addTodo = (~text, ~points, ~goToTodoList, ~todoListID, ~dispatch) =>
   Js.Promise.(
-    Axios.postData(
-      routes.todos ++ todoListID,
-      newTodoToObject({text, points}),
-    )
+    Axios.postData(routes.todos ++ todoListID, toObject({text, points}))
     |> then_(res => resolve(goToTodoList()))
     |> catch(_ => resolve(dispatch(ERROR_ADDING_TODO)))
     |> ignore
   );
 
-let fetchTodos = (~todoListID:id, ~dispatch) =>
+let addReward = (~text, ~points, ~goToTodoList, ~userID, ~dispatch) =>
+  Js.Promise.(
+    Axios.postData(routes.rewards ++ userID, toObject({text, points}))
+    |> then_(res => resolve(goToTodoList()))
+    |> catch(_ => resolve(dispatch(ERROR_ADDING_REWARD)))
+    |> ignore
+  );
+
+let fetchTodos = (~todoListID: id, ~dispatch) =>
   Js.Promise.(
     Axios.get(routes.todos ++ todoListID)
     |> then_(res => {
@@ -44,7 +52,8 @@ let fetchTodos = (~todoListID:id, ~dispatch) =>
        })
     |> ignore
   );
-let completeTodo = (~todoID:id, ~dispatch) =>
+
+let completeTodo = (~todoID: id, ~dispatch) =>
   Js.Promise.(
     Axios.post(routes.completeTodo ++ todoID)
     |> then_(res => {
@@ -54,3 +63,23 @@ let completeTodo = (~todoID:id, ~dispatch) =>
     |> catch(_ => resolve(dispatch(ERROR_COMPLETING_TODO)))
     |> ignore
   );
+
+let userPost = (~username, ~password, ~dispatch, ~route) =>
+  Js.Promise.(
+    Axios.postData(route, toObject({username, password}))
+    |> then_(res => {
+         let user = res##data##user;
+         resolve(dispatch(`LOGGED_IN(user)));
+       })
+    |> catch(err => {
+         Js.log(err);
+         resolve(dispatch(`ERROR));
+       })
+    |> ignore
+  );
+
+let login = (~username, ~password, ~dispatch) =>
+  userPost(~username, ~password, ~dispatch, ~route=routes.login);
+
+let signup = (~username, ~password, ~dispatch) =>
+  userPost(~username, ~password, ~dispatch, ~route=routes.user);

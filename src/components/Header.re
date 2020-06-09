@@ -1,7 +1,10 @@
 open ReactNative;
 open ReactUtils;
 open Colors;
-open Types;
+open Actions;
+open Data;
+open Screens;
+open Settings;
 
 let styles =
   Style.(
@@ -19,25 +22,27 @@ let styles =
   );
 
 [@react.component]
-let make = (~screen, ~dispatch) =>
+let make = (~screen, ~dispatch, _) =>
   switch (screen) {
-  | STATS =>
+  | `STATS =>
     <View> <Text style=styles##header> {toStr("STATS")} </Text> </View>
-  | TODOLIST =>
+  | `LOGIN =>
+    <View> <Text style=styles##header> {toStr("LOG IN")} </Text> </View>
+  | `TODOLIST =>
     <View style=styles##nav>
-      <Button title="back" onPress=(_ => dispatch(STATS)) />
+      <Button title="back" onPress=(_ => dispatch(`STATS)) />
       <Text style=styles##header> {toStr("TODOS")} </Text>
     </View>
-  | ADDTODO =>
+  | `ADD_TODO =>
     <View> <Text style=styles##header> {toStr("TODOS")} </Text> </View>
-  | STORE =>
+  | `STORE =>
     <View style=styles##nav>
-      <Button title="back" onPress=(_ => dispatch(STATS)) />
+      <Button title="back" onPress=(_ => dispatch(`STATS)) />
       <Text style=styles##header> {toStr("STORE")} </Text>
     </View>
   | _ =>
     <View style=styles##nav>
-      <Button title="back" onPress=(_ => dispatch(STATS)) />
+      <Button title="back" onPress=(_ => dispatch(`STATS)) />
       <Text style=styles##header> {toStr("NOT FOUND")} </Text>
     </View>
   };

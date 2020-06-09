@@ -1,6 +1,9 @@
 open ReactNative;
 open React;
-open Types;
+open Actions;
+open Data;
+open Screens;
+open Settings;
 open ReactUtils;
 open AxiosUtils;
 open Constants;
@@ -9,7 +12,7 @@ let styles =
   Style.(StyleSheet.create({"fetching": style(~alignItems=`center, ())}));
 
 [@react.component]
-let make = (~goToAddTodo) => {
+let make = (~goToAddTodo, _) => {
   let (state: todoListScreen, dispatch) =
     useReducer(
       (state, action) =>
@@ -45,7 +48,7 @@ let make = (~goToAddTodo) => {
       !state.fetching ?
         <View>
           <TodoList
-            todoList={state.todoList}
+            todoList={Some(state.todoList)}
             completeTodo={completeTodo(~dispatch)}
           />
           <Button title="Add todo" onPress={_ => goToAddTodo()} />

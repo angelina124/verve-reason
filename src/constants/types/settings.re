@@ -1,0 +1,3 @@
+type mode =
+  | DEVELOP
+  | PRODUCTION;

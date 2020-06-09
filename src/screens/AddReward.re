@@ -29,13 +29,13 @@ let styles =
   );
 
 [@react.component]
-let make = (~goToTodoList, _) => {
+let make = (~goToTodoList, ~userID, _) => {
   let (state, dispatch) =
     useReducer(
       (state, action) =>
         switch (action) {
         | TEXT_CHANGED(text) => {...state, text}
-        | ERROR_ADDING_TODO => {...state, error: true}
+        | ERROR_ADDING_REWARD => {...state, error: true}
         | _ => state
         },
       {error: false, canSubmit: true, text: "", points: defaultPoints},
@@ -49,11 +49,11 @@ let make = (~goToTodoList, _) => {
       title="Submit"
       onPress={
         _ =>
-          addTodo(
+          addReward(
             ~text=state.text,
             ~points=state.points,
             ~goToTodoList,
-            ~todoListID=tID,
+            ~userID,
             ~dispatch,
           )
       }

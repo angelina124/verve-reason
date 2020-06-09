@@ -1,4 +1,7 @@
-open Types;
+open Actions;
+open Data;
+open Screens;
+open Settings;
 
 external toStr: string => React.element = "%identity";
-external newTodoToObject: new_todo => Js.t({..}) = "%identity";
+external toObject: 'a => Js.t({..}) = "%identity";
