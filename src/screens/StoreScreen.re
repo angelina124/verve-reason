@@ -1,7 +1,10 @@
 open ReactNative;
 open React;
 open Routes;
-open Types;
+open Actions;
+open Data;
+open Screens;
+open Settings;
 open ReactUtils;
 open AxiosUtils;
 open Constants;
@@ -10,7 +13,7 @@ let styles =
   Style.(StyleSheet.create({"fetching": style(~alignItems=`center, ())}));
 
 [@react.component]
-let make = () => {
+let make = (~goToAddReward, _) => {
   let (state: storeScreen, dispatch) =
     useReducer(
       (state, action) =>
@@ -34,8 +37,10 @@ let make = () => {
   <View>
     {
       !state.fetching ?
-        <View> <Store rewardList={state.rewardList} /> </View> :
-        /*<Button title="Add reward" onPress={_ => goToAddreward()} />*/
+        <View>
+          <Store rewardList={Some(state.rewardList)} />
+          <Button title="Add reward" onPress={_ => goToAddReward()} />
+        </View> :
         <View style=styles##fetching>
           <Text> {toStr("fetching your awesome rewards...")} </Text>
         </View>

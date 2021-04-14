@@ -2,7 +2,11 @@ open ReactNative;
 open React;
 open ReactUtils;
 open Colors;
-open Types;
+open Constants;
+open Actions;
+open Data;
+open Screens;
+open Settings;
 
 let windowDimensions = Dimensions.get(`window);
 let height = windowDimensions##height;
@@ -42,20 +46,24 @@ let app = () => {
     useReducer(
       (state, action) =>
         switch (action) {
-        | TODOLIST => {screen: TODOLIST}
-        | ADDTODO => {screen: ADDTODO}
-        | STATS => {screen: STATS}
-        | STORE => {screen: STORE}
-        | _ => {screen: NOT_FOUND}
+        | `TODOLIST => {...state, screen: `TODOLIST}
+        | `ADD_TODO => {...state, screen: `ADD_TODO}
+        | `STATS => {...state, screen: `STATS}
+        | `STORE => {...state, screen: `STORE}
+        | `LOGGED_IN(user) =>
+          Js.log(user);
+          {screen: `STATS, user: Some(user)};
+        | `ERROR => {...state, screen: `ERROR}
+        | _ => {...state, screen: `NOT_FOUND}
         },
-      {screen: STATS},
+      {screen: `LOGIN, user: None},
     );
   let not_found =
     <View> <Text> {toStr("screen not found :(")} </Text> </View>;
   let stats =
     <View>
-      <Button title="store" onPress={_ => dispatch(STORE)} />
-      <Button title="todos" onPress={_ => dispatch(TODOLIST)} />
+      <Button title="store" onPress={_ => dispatch(`STORE)} />
+      <Button title="todos" onPress={_ => dispatch(`TODOLIST)} />
     </View>;
   <View style=styles##app>
     <View style=styles##headerContainer>
@@ -64,10 +72,33 @@ let app = () => {
     <View style=styles##sectionContainer>
       {
         switch (state.screen) {
-        | TODOLIST => <TodoListScreen goToAddTodo=(() => dispatch(ADDTODO)) />
-        | ADDTODO => <AddTodo goToTodoList=(() => dispatch(TODOLIST)) />
-        | STORE => <StoreScreen />
-        | STATS => stats
+        | `ADD_TODO => 
+        <AddTodo 
+        goToTodoList=(() => dispatch(`TODOLIST)) 
+          />
+        | `ADD_REWARD => 
+        <AddReward goToTodoList=(() => dispatch(`TODOLIST)) 
+        userID={ 
+          switch(state.user){ 
+          | Some(user) => user._id
+          | None => uID
+          } 
+      }/>
+        | `LOGIN =>
+          <LoginScreen
+            login=(
+              (~username, ~password) =>
+                AxiosUtils.login(~username, ~password, ~dispatch)
+            )
+            signup=(
+              (~username, ~password) =>
+                AxiosUtils.login(~username, ~password, ~dispatch)
+            )
+          />
+        | `STATS => stats
+        | `STORE => <StoreScreen goToAddReward=(() => dispatch(`ADD_REWARD)) />
+        | `TODOLIST =>
+          <TodoListScreen goToAddTodo=(() => dispatch(`ADD_TODO)) />
         | _ => not_found
         }
       }

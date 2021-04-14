@@ -1,4 +1,4 @@
-open Types;
+open Settings;
 
 let mode = PRODUCTION;
 

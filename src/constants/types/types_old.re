@@ -21,6 +21,18 @@ type new_todo = {
   points: int,
 };
 
+type user = {
+  _id: string,
+  username: string,
+  todoLists: list(list(todo)),
+  rewards: list(reward),
+};
+
+type loginFields = {
+  username: string,
+  password: string,
+};
+
 type todosAction =
   | FETCHED_TODOS(list(todo))
   | FETCHING_TODOS
@@ -38,12 +50,33 @@ type addAction =
   | ERROR_ADDING_TODO
   | TEXT_CHANGED(string);
 
-type screens =
-  | TODOLIST
-  | STATS
-  | ADDTODO
-  | STORE
-  | NOT_FOUND;
+type screens = [
+  | `TODOLIST
+  | `STATS
+  | `ADD_TODO
+  | `STORE
+  | `LOGIN
+  | `ERROR
+  | `NOT_FOUND
+];
+
+type loginAction =
+  | USERNAME_UPDATED(string)
+  | PASSWORD_UPDATED(string)
+  | ERROR_SUBMITTING
+  | TOGGLE_LOGIN;
+
+type userAction = [ | `LOGGED_IN(user) | `ERROR];
+
+type appAction = [ screens | userAction];
+
+type loginScreen = {
+  username: string,
+  password: string,
+  canSubmit: bool,
+  error: bool,
+  isLogin: bool,
+};
 
 type todoListScreen = {
   todoList: list(todo),
@@ -59,8 +92,6 @@ type storeScreen = {
   error: bool,
 };
 
-type appScreen = {screen: screens};
-
 type addTodoScreen = {
   error: bool,
   canSubmit: bool,
@@ -68,9 +99,15 @@ type addTodoScreen = {
   points: int,
 };
 
-type states = {
+type appScreen = {
+  screen: screens,
+  user: option(user),
+};
+
+type state = {
   todoListScreen,
   appScreen,
   addTodoScreen,
+  loginScreen,
   storeScreen,
 };
