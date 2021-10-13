@@ -1,6 +1,6 @@
-open Types;
+open Settings;
 
-let mode = PRODUCTION;
+let mode = DEVELOP;
 
 let path =
   switch (mode) {
@@ -15,8 +15,6 @@ type reward_route = string;
 type routes = {
   todos: todo_route,
   completeTodo: todo_route,
-  addTodo: todo_route,
-  addReward: reward_route,
   rewards: reward_route,
   user: user_route,
   login: user_route,
@@ -25,9 +23,7 @@ type routes = {
 let routes = {
   todos: path ++ "todos/",
   completeTodo: path ++ "todos/complete/",
-  addTodo: path ++ "todos/",
   rewards: path ++ "rewards/",
-  addReward: path ++ "rewards/",
-  user: path ++ "users/",
+  user: path ++ "users/signup",
   login: path ++ "users/login",
 };

@@ -1,7 +1,7 @@
 type color = string;
 type colorValues = {
   blueYonder: color,
-  naplesYellow: color,
+  shore: color,
 };
 
-let colors: colorValues = {blueYonder: "#4472B7", naplesYellow: "#FFDC64"};
+let colors: colorValues = {blueYonder: "#4472B7", shore: "#AFDED8"};

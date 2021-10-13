@@ -1,14 +1,13 @@
 open ReactNative;
 open React;
-open Routes;
-open Types;
-open ReactUtils;
+open Actions;
+open Screens;
 open AxiosUtils;
 open Constants;
 open Colors;
 
 let windowDimensions = Dimensions.get(`window);
-let windowWidth = windowDimensions##width;
+let windowWidth = windowDimensions.width;
 
 let styles =
   Style.(
@@ -30,7 +29,7 @@ let styles =
   );
 
 [@react.component]
-let make = (~goToTodoList: unit => unit) => {
+let make = (~goToTodoList, _) => {
   let (state, dispatch) =
     useReducer(
       (state, action) =>
@@ -54,7 +53,7 @@ let make = (~goToTodoList: unit => unit) => {
             ~text=state.text,
             ~points=state.points,
             ~goToTodoList,
-            ~todoID=tID,
+            ~todoListID=tID,
             ~dispatch,
           )
       }

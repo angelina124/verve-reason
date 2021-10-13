@@ -1,6 +1,8 @@
 open ReactNative;
 open React;
-open Types;
+open Actions;
+open Data;
+open Screens;
 open ReactUtils;
 open AxiosUtils;
 open Constants;
@@ -9,12 +11,12 @@ let styles =
   Style.(StyleSheet.create({"fetching": style(~alignItems=`center, ())}));
 
 [@react.component]
-let make = (~goToAddTodo) => {
+let make = (~goToAddTodo, ~uID, _) => {
   let (state: todoListScreen, dispatch) =
     useReducer(
       (state, action) =>
         switch (action) {
-        | FETCH_TODOS(ts) => {
+        | FETCHED_TODOS(ts) => {
             ...state,
             fetching: false,
             fetched: true,
@@ -22,7 +24,7 @@ let make = (~goToAddTodo) => {
           }
         | FETCHING_TODOS => {...state, fetching: true}
         | ERROR_FETCHING_TODOS => {...state, fetching: false, error: true}
-        | COMPLETE_TODO(completed) => {
+        | COMPLETED_TODO(completed) => {
             ...state,
             todoList:
               List.filter(
@@ -36,7 +38,7 @@ let make = (~goToAddTodo) => {
     );
   React.useEffect0(() => {
     dispatch(FETCHING_TODOS);
-    Js.Global.setTimeout(() => fetchTodos(~todoID=tID, ~dispatch), 2000)
+    Js.Global.setTimeout(() => fetchTodos(~todoListID=tID, ~dispatch), 2000)
     |> ignore;
     Some(() => Js.log("updated"));
   });
@@ -45,7 +47,7 @@ let make = (~goToAddTodo) => {
       !state.fetching ?
         <View>
           <TodoList
-            todoList={state.todoList}
+            todoList={Some(state.todoList)}
             completeTodo={completeTodo(~dispatch)}
           />
           <Button title="Add todo" onPress={_ => goToAddTodo()} />

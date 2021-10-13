@@ -1,10 +1,13 @@
 open ReactNative;
 open ReasonReact;
 open ReactUtils;
-open Types;
+open Actions;
+open Data;
+open Screens;
+open Settings;
 
 let windowDimensions = Dimensions.get(`window);
-let windowWidth = windowDimensions##width;
+let windowWidth = windowDimensions.width;
 
 let styles =
   Style.(
@@ -40,7 +43,7 @@ let delIconPath = Packager.require("../../assets/todos/delete.png");
 
 module DelIcon = {
   [@react.component]
-  let make = () =>
+  let make = _ =>
     <Image
       source={Image.Source.fromRequired(delIconPath)}
       resizeMethod=`scale
@@ -49,7 +52,7 @@ module DelIcon = {
 };
 
 [@react.component]
-let make = (~todoList: option(list(todo))=?, ~completeTodo, _) =>
+let make = (~completeTodo, ~todoList, _) =>
   switch (todoList) {
   | Some(todos) =>
     <View style=styles##todoList>

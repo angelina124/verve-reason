@@ -1,10 +1,13 @@
 open ReactNative;
 open ReasonReact;
 open ReactUtils;
-open Types;
+open Actions;
+open Data;
+open Screens;
+open Settings;
 
 let windowDimensions = Dimensions.get(`window);
-let windowWidth = windowDimensions##width;
+let windowWidth = windowDimensions.width;
 
 let styles =
   Style.(
@@ -30,26 +33,26 @@ let styles =
   );
 
 [@react.component]
-let make = (~rewardList: option(list(reward))=?, _) => {
+let make = (~rewardList, _) =>
   switch (rewardList) {
   | Some(rewards) =>
-    <View style={styles##rewardList}>
-      {List.mapi(
-         (i, reward: reward) => {
-           <View key={string_of_int(i)} style={styles##rewardContainer}>
-             <View style={styles##points}>
-               <Text> {string_of_int(reward.points) |> toStr} </Text>
-             </View>
-             <View style={styles##text}>
-               <Text> {toStr(reward.text)} </Text>
-             </View>
-           </View>
-         },
-         rewards,
-       )
-       |> Array.of_list
-       |> array}
+    <View style=styles##rewardList>
+      {
+        List.mapi(
+          (i, reward: reward) =>
+            <View key={string_of_int(i)} style=styles##rewardContainer>
+              <View style=styles##points>
+                <Text> {string_of_int(reward.points) |> toStr} </Text>
+              </View>
+              <View style=styles##text>
+                <Text> {toStr(reward.text)} </Text>
+              </View>
+            </View>,
+          rewards,
+        )
+        |> Array.of_list
+        |> array
+      }
     </View>
   | None => <View> <Text> {toStr("No rewards here!")} </Text> </View>
   };
-};
