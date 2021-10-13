@@ -3,7 +3,6 @@ open React;
 open Actions;
 open Data;
 open Screens;
-open Settings;
 open ReactUtils;
 open AxiosUtils;
 open Constants;
@@ -12,7 +11,7 @@ let styles =
   Style.(StyleSheet.create({"fetching": style(~alignItems=`center, ())}));
 
 [@react.component]
-let make = (~goToAddTodo, _) => {
+let make = (~goToAddTodo, ~uID, _) => {
   let (state: todoListScreen, dispatch) =
     useReducer(
       (state, action) =>

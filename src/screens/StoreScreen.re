@@ -13,7 +13,7 @@ let styles =
   Style.(StyleSheet.create({"fetching": style(~alignItems=`center, ())}));
 
 [@react.component]
-let make = (~goToAddReward, _) => {
+let make = (~goToAddReward, ~uID, _) => {
   let (state: storeScreen, dispatch) =
     useReducer(
       (state, action) =>
@@ -30,6 +30,7 @@ let make = (~goToAddReward, _) => {
       {rewardList: [], fetching: false, fetched: false, error: false},
     );
   React.useEffect0(() => {
+    Js.log(uID);
     dispatch(FETCHING_REWARDS);
     Js.Global.setTimeout(() => fetchRewards(~uID, ~dispatch), 2000) |> ignore;
     Some(() => Js.log("updated"));

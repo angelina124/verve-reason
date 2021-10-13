@@ -7,7 +7,7 @@ open Screens;
 open Settings;
 
 let windowDimensions = Dimensions.get(`window);
-let windowWidth = windowDimensions##width;
+let windowWidth = windowDimensions.width;
 
 let styles =
   Style.(

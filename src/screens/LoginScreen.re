@@ -13,7 +13,7 @@ open Colors;
 open Validation;
 
 let windowDimensions = Dimensions.get(`window);
-let windowWidth = windowDimensions##width;
+let windowWidth = windowDimensions.width;
 
 let styles =
   Style.(
@@ -70,16 +70,16 @@ let make = (~login, ~signup, _) => {
         isLogin: true,
       },
     );
-  let submit = () =>
+  
+    let submit = () =>
     if (!state.canSubmit) {
-      Js.log("oop");
-      Js.log(state);
       dispatch(ERROR_SUBMITTING);
     } else if (state.isLogin) {
       login(~username=state.username, ~password=state.password);
     } else {
       signup(~username=state.username, ~password=state.password);
     };
+
   <View style=styles##container>
     <TextInput
       style=styles##textInput

@@ -7,7 +7,7 @@ open Constants;
 open Colors;
 
 let windowDimensions = Dimensions.get(`window);
-let windowWidth = windowDimensions##width;
+let windowWidth = windowDimensions.width;
 
 let styles =
   Style.(
@@ -29,7 +29,7 @@ let styles =
   );
 
 [@react.component]
-let make = (~goToTodoList, ~userID, _) => {
+let make = (~goToTodoList, ~uID, _) => {
   let (state, dispatch) =
     useReducer(
       (state, action) =>
@@ -53,7 +53,7 @@ let make = (~goToTodoList, ~userID, _) => {
             ~text=state.text,
             ~points=state.points,
             ~goToTodoList,
-            ~userID,
+            ~userID=uID,
             ~dispatch,
           )
       }

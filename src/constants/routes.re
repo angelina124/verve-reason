@@ -1,6 +1,6 @@
 open Settings;
 
-let mode = PRODUCTION;
+let mode = DEVELOP;
 
 let path =
   switch (mode) {
@@ -24,6 +24,6 @@ let routes = {
   todos: path ++ "todos/",
   completeTodo: path ++ "todos/complete/",
   rewards: path ++ "rewards/",
-  user: path ++ "users/",
+  user: path ++ "users/signup",
   login: path ++ "users/login",
 };

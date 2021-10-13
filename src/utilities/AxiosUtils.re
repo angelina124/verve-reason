@@ -5,19 +5,21 @@ open Screens;
 open Settings;
 open ReactUtils;
 
+
 let fetchRewards = (~uID: id, ~dispatch) =>
   Js.Promise.(
     Axios.get(routes.rewards ++ uID)
     |> then_(res => {
-         let ts = res##data##rewards;
-         Js.log(ts);
-         let rewardList = Js.Array.reduceRight((a, t) => [t, ...a], [], ts);
-         resolve(dispatch(FETCHED_REWARDS(rewardList)));
-       })
+        Js.log("fetching rewards!!");
+        let ts = res##data##rewards;
+        let rewardList = Js.Array.reduceRight((a, t) => [t, ...a], [], ts);
+        resolve(dispatch(FETCHED_REWARDS(rewardList)));
+      })
     |> catch(err => {
-         Js.log(err);
-         resolve(dispatch(ERROR_FETCHING_REWARDS));
-       })
+        Js.log(err);
+        Js.log("ERROR")
+        resolve(dispatch(ERROR_FETCHING_REWARDS));
+      })
     |> ignore
   );
 
@@ -41,15 +43,14 @@ let fetchTodos = (~todoListID: id, ~dispatch) =>
   Js.Promise.(
     Axios.get(routes.todos ++ todoListID)
     |> then_(res => {
-         let ts = res##data##todos;
-         Js.log(ts);
-         let todoList = Js.Array.reduceRight((a, t) => [t, ...a], [], ts);
-         resolve(dispatch(FETCHED_TODOS(todoList)));
-       })
+        let ts = res##data##todos;
+        let todoList = Js.Array.reduceRight((a, t) => [t, ...a], [], ts);
+        resolve(dispatch(FETCHED_TODOS(todoList)));
+      })
     |> catch(err => {
-         Js.log(err);
-         resolve(dispatch(ERROR_FETCHING_TODOS));
-       })
+        Js.log(err);
+        resolve(dispatch(ERROR_FETCHING_TODOS));
+      })
     |> ignore
   );
 
@@ -57,9 +58,9 @@ let completeTodo = (~todoID: id, ~dispatch) =>
   Js.Promise.(
     Axios.post(routes.completeTodo ++ todoID)
     |> then_(res => {
-         let todo = res##data##todoDoc;
-         resolve(dispatch(COMPLETED_TODO(todo)));
-       })
+        let todo = res##data##todoDoc;
+        resolve(dispatch(COMPLETED_TODO(todo)));
+      })
     |> catch(_ => resolve(dispatch(ERROR_COMPLETING_TODO)))
     |> ignore
   );
@@ -68,13 +69,13 @@ let userPost = (~username, ~password, ~dispatch, ~route) =>
   Js.Promise.(
     Axios.postData(route, toObject({username, password}))
     |> then_(res => {
-         let user = res##data##user;
-         resolve(dispatch(`LOGGED_IN(user)));
-       })
+        let user = res##data##user;
+        resolve(dispatch(`LOGGED_IN(user)));
+      })
     |> catch(err => {
-         Js.log(err);
-         resolve(dispatch(`ERROR));
-       })
+        Js.log(err);
+        resolve(dispatch(`ERROR));
+      })
     |> ignore
   );
 

@@ -1,49 +1,40 @@
 {
+  "name": "expo-template-rescript",
   "main": "node_modules/expo/AppEntry.js",
+  "version": "0.0.6",
+  "license": "MIT",
+  "keywords": [
+    "expo",
+    "reasonml",
+    "rescript",
+    "react",
+    "react-native"
+  ],
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
+    "web": "expo start --web",
     "eject": "expo eject",
     "build": "bsb -make-world -clean-world",
-    "watch": "bsb -make-world -clean-world -w",
-    "test": "jest"
+    "watch": "bsb -clean-world -make-world -w",
+    "clean": "bsb -clean-world"
   },
   "dependencies": {
     "bs-axios": "^0.0.43",
-    "bsc": "^1.0.1",
-    "expo": "^34.0.3",
-    "jest-expo": "^34.0.0",
-    "react": "16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
-    "reason-expo": "^34.4.1",
-    "reason-react": "^0.7.0",
-    "reason-react-native": "^0.61.0",
-    "watchman": "^1.0.0"
+    "expo": "~39.0.2",
+    "expo-status-bar": "~1.0.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.2.tar.gz",
+    "react-native-web": "^0.17.5",
+    "reason-expo": "https://gitpkg.now.sh/mlventures/reason-expo/packages/reason-expo?b4833d3",
+    "reason-react": "^0.9.1",
+    "reason-react-native": "^0.62.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/runtime": "^7.6.2",
-    "@react-native-community/eslint-config": "^0.0.5",
-    "babel-jest": "^24.9.0",
-    "bs-jest-dom": "^4.0.0",
-    "bs-platform": "^7.0.0",
-    "bs-enzyme": "^0.6.1",
-    "enzyme-to-json": "^3.5.0",
-    "eslint": "^6.5.1",
-    "jest": "^24.9.0",
-    "metro-react-native-babel-preset": "^0.56.0",
-    "react-test-renderer": "16.9.0",
-    "reason-expo": "^34.4.1"
+    "@babel/core": "~7.9.0",
+    "bs-platform": "^8.2.0"
   },
-  "jest": {
-    "preset": "react-native",
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-(native|universal|navigation)-(.*)|@react-native-community/(.*)|@react-navigation/(.*)|bs-platform)"
-    ]
-  },
-  "private": true
+  "private": false
 }

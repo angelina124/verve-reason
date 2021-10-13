@@ -14,3 +14,8 @@ let toStr: string => React.element;
  the data.
  */
 let toObject: 'a => Js.t({..});
+
+/*
+ getID(user) gets the id of the user if it exists
+ */
+let getID: option(Data.user) => string
