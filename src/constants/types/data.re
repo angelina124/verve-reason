@@ -6,6 +6,13 @@ type todo = {
   points: int,
 };
 
+type todolist = {
+  _id: id,
+  completedTodos: list(todo),
+  title: string,
+  todos: list(todo)
+}
+
 type reward = {
   _id: id,
   text: string,
@@ -20,7 +27,7 @@ type new_todo = {
 type user = {
   _id: string,
   username: string,
-  todoLists: list(list(todo)),
+  todolists: array(todolist),
   rewards: list(reward),
 };
 

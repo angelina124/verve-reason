@@ -21,7 +21,8 @@ type addAction =
   | ERROR_ADDING_TODO
   | ADD_REWARD(reward)
   | ERROR_ADDING_REWARD
-  | TEXT_CHANGED(string);
+  | TEXT_CHANGED(string)
+  | POINTS_CHANGED(int);
 
 type screens = [
   | `TODOLIST

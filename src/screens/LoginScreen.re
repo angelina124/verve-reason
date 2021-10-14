@@ -85,11 +85,15 @@ let make = (~login, ~signup, _) => {
       style=styles##textInput
       onChangeText={username => dispatch(USERNAME_UPDATED(username))}
       textContentType=`username
+      autoCorrect=false
+      placeholder="Username"
     />
     <TextInput
       style=styles##textInput
       onChangeText={password => dispatch(PASSWORD_UPDATED(password))}
       textContentType=`password
+      autoCorrect=false
+      placeholder="Password"
     />
     {
       state.isLogin ?

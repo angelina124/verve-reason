@@ -41,7 +41,7 @@ let addReward:
   (
     ~text: string,
     ~points: int,
-    ~goToTodoList: unit => 'a,
+    ~goToStore: unit => 'a,
     ~userID: id,
     ~dispatch: addAction => 'a
   ) =>

@@ -18,4 +18,9 @@ let toObject: 'a => Js.t({..});
 /*
  getID(user) gets the id of the user if it exists
  */
-let getID: option(Data.user) => string
+let getID: option(Data.user) => id
+
+/*
+ getDefaultTodoList(user) gets the first todolist the user has
+ */
+let getDefaultTodoList: option(Data.user) => id

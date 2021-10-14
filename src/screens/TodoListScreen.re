@@ -11,7 +11,7 @@ let styles =
   Style.(StyleSheet.create({"fetching": style(~alignItems=`center, ())}));
 
 [@react.component]
-let make = (~goToAddTodo, ~uID, _) => {
+let make = (~goToAddTodo, ~tID, _) => {
   let (state: todoListScreen, dispatch) =
     useReducer(
       (state, action) =>

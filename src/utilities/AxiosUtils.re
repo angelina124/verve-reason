@@ -31,10 +31,10 @@ let addTodo = (~text, ~points, ~goToTodoList, ~todoListID, ~dispatch) =>
     |> ignore
   );
 
-let addReward = (~text, ~points, ~goToTodoList, ~userID, ~dispatch) =>
+let addReward = (~text, ~points, ~goToStore, ~userID, ~dispatch) =>
   Js.Promise.(
     Axios.postData(routes.rewards ++ userID, toObject({text, points}))
-    |> then_(res => resolve(goToTodoList()))
+    |> then_(res => resolve(goToStore()))
     |> catch(_ => resolve(dispatch(ERROR_ADDING_REWARD)))
     |> ignore
   );
@@ -70,6 +70,8 @@ let userPost = (~username, ~password, ~dispatch, ~route) =>
     Axios.postData(route, toObject({username, password}))
     |> then_(res => {
         let user = res##data##user;
+        Js.log("Logging in");
+        Js.log(user);
         resolve(dispatch(`LOGGED_IN(user)));
       })
     |> catch(err => {

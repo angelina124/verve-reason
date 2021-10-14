@@ -13,4 +13,16 @@ let getID = ( user ) => {
         | Some(u) => u._id
         | None => "123"
     } 
-  } 
+}
+
+
+let getDefaultTodoList = ( user ) => {
+    Js.log(user);
+    switch(user) { 
+        | Some(u) => {
+            let todolist = u.todolists[0];
+            todolist._id
+        }
+        | None => "123"
+    } 
+} 

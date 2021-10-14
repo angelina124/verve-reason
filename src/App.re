@@ -77,11 +77,12 @@ let app = () => {
         switch (state.screen) {
         | `ADD_TODO => 
             <AddTodo 
-              goToTodoList=(() => dispatch(`TODOLIST)) 
+              goToTodoList=(() => dispatch(`TODOLIST))
+              tID= getDefaultTodoList(state.user)
               />
         | `ADD_REWARD => 
             <AddReward 
-              goToTodoList=(() => dispatch(`TODOLIST)) 
+              goToStore=(() => dispatch(`STORE)) 
               uID= getID(state.user)
             />
         | `LOGIN =>
@@ -104,7 +105,7 @@ let app = () => {
         | `TODOLIST =>
           <TodoListScreen 
             goToAddTodo=(() => dispatch(`ADD_TODO)) 
-            uID= getID(state.user) 
+            tID= getDefaultTodoList(state.user)
           />
         | _ => not_found
         }

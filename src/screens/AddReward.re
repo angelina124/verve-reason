@@ -23,18 +23,20 @@ let styles =
           ~alignItems=`center,
           ~alignSelf=`center,
           ~fontSize=18.,
+          ~marginBottom=16.->dp,
           (),
         ),
     })
   );
 
 [@react.component]
-let make = (~goToTodoList, ~uID, _) => {
+let make = (~goToStore, ~uID, _) => {
   let (state, dispatch) =
     useReducer(
       (state, action) =>
         switch (action) {
         | TEXT_CHANGED(text) => {...state, text}
+        | POINTS_CHANGED(points) => {...state, points}
         | ERROR_ADDING_REWARD => {...state, error: true}
         | _ => state
         },
@@ -42,8 +44,15 @@ let make = (~goToTodoList, ~uID, _) => {
     );
   <View style=styles##container>
     <TextInput
+      placeholder="Buy a new watch"
       style=styles##textInput
       onChangeText={text => dispatch(TEXT_CHANGED(text))}
+    />
+    <TextInput
+      placeholder="0"
+      style=styles##textInput
+      keyboardType=`numberPad
+      onChangeText={points => dispatch(POINTS_CHANGED(int_of_string(points)))}
     />
     <Button
       title="Submit"
@@ -52,7 +61,7 @@ let make = (~goToTodoList, ~uID, _) => {
           addReward(
             ~text=state.text,
             ~points=state.points,
-            ~goToTodoList,
+            ~goToStore,
             ~userID=uID,
             ~dispatch,
           )

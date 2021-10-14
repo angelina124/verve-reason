@@ -23,13 +23,14 @@ let styles =
           ~alignItems=`center,
           ~alignSelf=`center,
           ~fontSize=18.,
+          ~marginBottom=16.->dp,
           (),
         ),
     })
   );
 
 [@react.component]
-let make = (~goToTodoList, _) => {
+let make = (~goToTodoList, ~tID, _) => {
   let (state, dispatch) =
     useReducer(
       (state, action) =>
@@ -44,6 +45,12 @@ let make = (~goToTodoList, _) => {
     <TextInput
       style=styles##textInput
       onChangeText={text => dispatch(TEXT_CHANGED(text))}
+    />
+    <TextInput
+      placeholder="0"
+      style=styles##textInput
+      keyboardType=`numberPad
+      onChangeText={points => dispatch(POINTS_CHANGED(int_of_string(points)))}
     />
     <Button
       title="Submit"
